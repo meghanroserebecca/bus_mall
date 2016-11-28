@@ -41,7 +41,7 @@ function changePicture() {
   }
 
   displayIndex = randomIndex;
-  imageOne.src = '../lab/assets/' + paths[randomIndex];
+  imageOne.src = '../bus_mall/assets/' + paths[randomIndex];
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
