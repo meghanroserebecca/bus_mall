@@ -3,6 +3,7 @@
 var paths = ['sweep.png', 'dog-duck.jpg', 'breakfast.jpg', 'bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'tauntaun.jpg', 'unicorn.jpg','usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
 var items = [];
 var previousSet = [];
+var clickCounter = 0;
 
 var displayArea = document.getElementById('image_area');
 
@@ -18,18 +19,21 @@ function clickHandler(event) {
   var targetPath = targetString.split('bus_mall')[1];
   var itemPath;
 
-  for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('bus_mall')[1];
-    if (itemPath === targetPath) {
-      items[i].clicked += 1;
+  if (clickCounter < 25){
+    for (var i = 0; i < items.length; i++) {
+      itemPath = items[i].path.split('bus_mall')[1];
+      if (itemPath === targetPath) {
+        items[i].clicked += 1;
+        clickCounter ++;
+      }
     }
-  }
-  changePicture();
+    changePicture();} else {displayArea.addEventListener.disabled = true;}
 }
 
 function ItemImage (path) {
-  this.path = path;
+  this.path = '../bus_mall/assets/' + path;
   this.clicked = 0;
+  this.imageShown = 0;
 }
 
 function changePicture() {
