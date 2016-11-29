@@ -1,8 +1,8 @@
 'use strict';
 
 var paths = ['sweep.png', 'dog-duck.jpg', 'breakfast.jpg', 'bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'tauntaun.jpg', 'unicorn.jpg','usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
-var displayIndex = 0;
 var items = [];
+var previousSet = [];
 
 var displayArea = document.getElementById('image_area');
 
@@ -36,22 +36,34 @@ function changePicture() {
   var imageOne = document.getElementById('image_one');
   var imageTwo = document.getElementById('image_two');
   var imageThree = document.getElementById('image_three');
-  var randomIndex = generateRandomNumber();
+  previousSet = [imageOne.src, imageTwo.src, imageThree.src];
 
-  while (displayIndex === randomIndex) {
-    randomIndex = generateRandomNumber();
-  }
-
-  displayIndex = randomIndex;
-  imageOne.src = '../bus_mall/assets/' + paths[randomIndex]; //need to get these to turn into different images from each other - loop?
+  imageOne.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
   imageTwo.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
   imageThree.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
 
-  while (imageTwo.src === imageOne.src) {
+  /*for (var i = 0; i < previousSet; i++) {
+    if (imageOne.src !== previousSet[1]) {
+      previousSet.shift;
+      previousSet.push(imageOne.src);
+    }
+
+    if (imageTwo.src !== previousSet[2]) {
+      previousSet.shift;
+      previousSet.push(imageTwo.src);
+    }
+
+    if (imageThree.src !== previousSet[3]){
+      previousSet.shift;
+      previousSet.push(imageThree.src);
+    }*/
+  while (imageOne.src === previousSet[0] || imageOne.src === previousSet[1] || imageOne.src === previousSet[2]) {
+    imageOne.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
+  }
+  while (imageTwo.src === imageOne.src || imageTwo.src === previousSet[0] || imageTwo.src === previousSet[1] || imageTwo.src === previousSet[2]) {
     imageTwo.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
   }
-
-  while (imageThree.src === imageOne.src || imageThree.src === imageTwo.src) {
+  while (imageThree.src === imageOne.src || imageThree.src === imageTwo.src || imageThree.src === previousSet[0] || imageThree.src === previousSet[1] || imageThree.src === previousSet[2]) {
     imageThree.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
   }
 
