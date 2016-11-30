@@ -4,6 +4,8 @@ var paths = ['sweep.png', 'dog-duck.jpg', 'breakfast.jpg', 'bag.jpg', 'banana.jp
 var items = [];
 var previousSet = [];
 var clickCounter = 0;
+var clickedArray = [];
+//var displayIndices = [0, 0, 0];
 
 var displayArea = document.getElementById('image_area');
 
@@ -16,18 +18,37 @@ displayArea.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
   var targetString = event.target.src;
-  var targetPath = targetString.split('bus_mall')[1];
+  var targetPath = targetString.split('assets/')[1];
   var itemPath;
+  var clickedItems = [];
 
   if (clickCounter < 25){
     for (var i = 0; i < items.length; i++) {
-      itemPath = items[i].path.split('bus_mall')[1];
+      itemPath = items[i].path.split('assets/')[1];
       if (itemPath === targetPath) {
-        items[i].clicked += 1;
+        items[i].clicked ++;
         clickCounter ++;
       }
+      //console.log(items[i].clicked);
     }
-    changePicture();} else {displayArea.addEventListener.disabled = true;}
+    changePicture();} else {
+    displayArea.addEventListener.disabled = true;
+    trackClickedItems();
+    returnClickedPath();
+    renderChart();
+  }
+  function trackClickedItems() {
+    for (var j = 0; j < items.length; j++) {
+      if (items[j].clicked > 0) {
+        clickedArray.push(items[j].clicked);
+      }
+    }
+  }
+  function returnClickedPath() {
+    for (var k = 0; k < clickedArray.length; k++){
+      console.log(clickedArray.path);
+    }
+  }
 }
 
 function ItemImage (path) {
@@ -42,36 +63,104 @@ function changePicture() {
   var imageThree = document.getElementById('image_three');
   previousSet = [imageOne.src, imageTwo.src, imageThree.src];
 
-  imageOne.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
-  imageTwo.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
-  imageThree.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
+  imageOne.src = items[generateRandomNumber()].path;
+  imageTwo.src = items[generateRandomNumber()].path;
+  imageThree.src = items[generateRandomNumber()].path;
 
-  /*for (var i = 0; i < previousSet; i++) {
-    if (imageOne.src !== previousSet[1]) {
-      previousSet.shift;
-      previousSet.push(imageOne.src);
-    }
-
-    if (imageTwo.src !== previousSet[2]) {
-      previousSet.shift;
-      previousSet.push(imageTwo.src);
-    }
-
-    if (imageThree.src !== previousSet[3]){
-      previousSet.shift;
-      previousSet.push(imageThree.src);
-    }*/
   while (imageOne.src === previousSet[0] || imageOne.src === previousSet[1] || imageOne.src === previousSet[2]) {
-    imageOne.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
+    imageOne.src = items[generateRandomNumber()].path;
   }
   while (imageTwo.src === imageOne.src || imageTwo.src === previousSet[0] || imageTwo.src === previousSet[1] || imageTwo.src === previousSet[2]) {
-    imageTwo.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
+    imageTwo.src = items[generateRandomNumber()].path;
   }
   while (imageThree.src === imageOne.src || imageThree.src === imageTwo.src || imageThree.src === previousSet[0] || imageThree.src === previousSet[1] || imageThree.src === previousSet[2]) {
-    imageThree.src = '../bus_mall/assets/' + paths[generateRandomNumber()];
+    imageThree.src = items[generateRandomNumber()].path;
   }
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
   }
+  function showCount() {
+    for(i = 0; i < items.length; i++) {
+      if (items[i].path.split('..')[1] === imageOne.src.split('labs')[1] || items[i].path.split('..')[1] === imageTwo.src.split('labs')[1] || items[i].path.split('..')[1] === imageThree.src.split('labs')[1]) {
+        items[i].imageShown ++;
+      }
+    }
+  }
+  showCount();
+}
+
+function renderChart(){
+  var ctx = document.getElementById('my_chart');
+
+  var chartConfig = {
+    type: 'bar',
+    data: {
+      labels: paths,
+      datasets: [{
+        label: '# of Votes',
+        data: clickedArray,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "User Product Preferences",
+        fontSize: 22
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  };
+  var myChart = new Chart(ctx, chartConfig);
 }
