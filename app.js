@@ -5,7 +5,15 @@ var items = [];
 var previousSet = [];
 var clickCounter = 0;
 var clickedArray = [];
-//var displayIndices = [0, 0, 0];
+
+function saveData() {
+  var clickedArrayJSON = JSON.stringify(clickedArray);
+  localStorage.setItem('clickedArray', clickedArrayJSON);
+  var storedItemsString = localStorage.getItem('clickedArray');
+  var clickedArray = JSON.parse(storedItemsString);
+}
+
+saveData();
 
 var displayArea = document.getElementById('image_area');
 
@@ -20,7 +28,6 @@ function clickHandler(event) {
   var targetString = event.target.src;
   var targetPath = targetString.split('assets/')[1];
   var itemPath;
-  var clickedItems = [];
 
   if (clickCounter < 25){
     for (var i = 0; i < items.length; i++) {
@@ -34,19 +41,11 @@ function clickHandler(event) {
     changePicture();} else {
     displayArea.addEventListener.disabled = true;
     trackClickedItems();
-    returnClickedPath();
     renderChart();
   }
   function trackClickedItems() {
     for (var j = 0; j < items.length; j++) {
-      if (items[j].clicked > 0) {
-        clickedArray.push(items[j].clicked);
-      }
-    }
-  }
-  function returnClickedPath() {
-    for (var k = 0; k < clickedArray.length; k++){
-      console.log(clickedArray.path);
+      clickedArray.push(items[j].clicked);
     }
   }
 }
