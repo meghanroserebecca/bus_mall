@@ -7,16 +7,16 @@ var clickCounter = 0;
 var clickedArray = [];
 
 var displayArea = document.getElementById('image_area');
-
-if (localStorage.getItem('items') !== null){
+var storedItems = localStorage.getItem('items');
+if (storedItems) {
+  items = JSON.parse(storedItems);
+} else {
   for(var i = 0; i < paths.length; i++){
     var newItem = new ItemImage(paths[i]); //creates a new ItemImage instance and attaches it to our object
     items.push(newItem); //pushes to an array of all of our items
   }
-}else {
-  returnData();
-  console.log(items);
 }
+
 
 //if() there are values in local storage THEN push to items, if not then run the for loop?
 displayArea.addEventListener('click', clickHandler);
@@ -37,6 +37,7 @@ function clickHandler(event) {
     changePicture();} else {
     displayArea.addEventListener.disabled = true;
     trackClickedItems();
+    saveData();
     renderChart();
   }
   function trackClickedItems() {
@@ -44,7 +45,6 @@ function clickHandler(event) {
       clickedArray.push(items[j].clicked);
     }
   }
-  saveData();
 }
 
 function ItemImage (path) {
@@ -89,12 +89,6 @@ function changePicture() {
 function saveData() {
   var itemsJSON = JSON.stringify(items);
   localStorage.setItem('items', itemsJSON);
-}
-
-function returnData() {
-  var storedItemsString = localStorage.getItem('items');
-  var newItems = JSON.parse(storedItemsString);
-  items.push(newItems);
 }
 
 function renderChart(){
