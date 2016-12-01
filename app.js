@@ -8,7 +8,7 @@ var clickedArray = [];
 
 var displayArea = document.getElementById('image_area');
 
-if (localStorage.getItem !== null){
+if (localStorage.getItem('items') !== null){
   for(var i = 0; i < paths.length; i++){
     var newItem = new ItemImage(paths[i]); //creates a new ItemImage instance and attaches it to our object
     items.push(newItem); //pushes to an array of all of our items
