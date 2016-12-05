@@ -17,6 +17,26 @@ if (storedItems) {
   }
 }
 
+/*var imageShownToHTML = function() {
+  var mallTable = document.getElementById('store_table');
+  var tableRow = document.createElement('tr');
+  var nameTableHeader = document.createElement('th');
+
+  nameTableHeader.textContent = items[i];
+  tableRow.appendChild(nameTableHeader);
+
+  if (clickCounter > 25) {
+    for (var i = 0; i < items[i]; i++) {
+      var imageViews = document.createElement('td');
+      imageViews.textContent = items[i].imageShown;
+      tablerow.appendChild(imageViews);
+    }
+    mallTable.appendChild(tableRow);
+  }
+};
+
+imageShownToHTML() ; ---> table I didn't get working yet */
+
 
 //if() there are values in local storage THEN push to items, if not then run the for loop?
 displayArea.addEventListener('click', clickHandler);
