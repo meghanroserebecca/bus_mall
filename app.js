@@ -17,7 +17,7 @@ if (storedItems) {
   }
 }
 
-var imageShownToHTML = function() {
+/*var imageShownToHTML = function() {
   var mallTable = document.getElementById('store_table');
   var tableRow = document.createElement('tr');
   var nameTableHeader = document.createElement('th');
@@ -35,7 +35,7 @@ var imageShownToHTML = function() {
   }
 };
 
-imageShownToHTML() ;
+imageShownToHTML() ; ---> table I didn't get working yet */
 
 
 //if() there are values in local storage THEN push to items, if not then run the for loop?
