@@ -1,0 +1,44 @@
+body {
+  background-color: #AA3939;
+  color: #071b3a;
+}
+
+h2 {
+  color: #DF767B;
+  text-align: center;
+}
+
+h3, h5 {
+  text-align: center;
+  color: #DF767B;
+}
+
+h1 {
+  text-align: center;
+  background-color: #D46A6A;
+  padding: 20px;
+  color: #FFAAAA;
+}
+
+img {
+  max-width: 31%;
+  max-height: 31%;
+  float: left;
+  margin: 5px;
+  padding: 2px;
+  border: 2px solid #cd4edb;
+ }
+
+.clearfix:after {
+  display: table;
+  content: ' ';
+  clear: both;
+}
+
+canvas {
+  padding: 50px;
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 700px;
+  max-height: 700px;
+}
